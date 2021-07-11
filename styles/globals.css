@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+	--color-background: white;
+	--color-text: black;
+	--color-border: none;
+}
+
+.bg-mode {
+	background-color: var(--color-background);
+}
+
+.text-mode {
+	color: var(--color-text);
+}
+
+.border-mode {
+	border: solid 1px var(--color-border);
+}
