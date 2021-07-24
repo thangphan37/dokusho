@@ -16,7 +16,5 @@ export default function handler(
 	}
 	res.setHeader('Set-Cookie', serialize('lang', JSON.parse(req.body).lang, options))
 	res.statusCode = 307;
-	res.setHeader('Location', req.headers.referer || '/');
-	res.end();
-	return;
+	res.end(res.getHeader('Set-Cookie'))
 }

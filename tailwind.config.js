@@ -1,5 +1,9 @@
 module.exports = {
-  purge: [],
+  mode: 'jit',
+  purge: [
+    './components/**/*.{ts,tsx}',
+    './pages/**/*.{ts,tsx}',
+  ],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     boxShadow: {

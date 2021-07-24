@@ -1,9 +1,12 @@
+import { Layout } from '../components/layout'
+import { getAllBlogsData } from '../lib/book'
+import { H2, Paragraph } from '../components/typography'
+import type { NextApiRequest } from 'next'
+import type { LangOptions } from '../constants/lang'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import Concentration from '../public/concentration.jpg'
-import TheCourageToBeDisliked from '../public/the-courage-to-be-disliked.jpg'
-import { Layout } from '../components/layout'
+import slugify from 'slugify'
 interface Book {
   img: StaticImageData
   title: string
@@ -11,37 +14,17 @@ interface Book {
   slug: string
 }
 
-const books: Book[] = [
-  {
-    img: Concentration,
-    title: 'How To Increase Concentration.',
-    description:
-      'Sometimes I can not focus to do one thing. I feel struggle. But after meet this books I think my concentrations is improved. Thanks a lot.',
-    slug: 'how-to-increase-concentration',
-  },
-  {
-    img: TheCourageToBeDisliked,
-    title: 'The Courage To Be Disliked',
-    description:
-      'Sometimes I can not focus to do one thing. I feel struggle. But after meet this books I think my concentrations is improved. Thanks a lot.',
-    slug: 'the-courage-to-be-dislike',
-  },
-  {
-    img: TheCourageToBeDisliked,
-    title: 'The Courage To Be Disliked',
-    description:
-      'Sometimes I can not focus to do one thing. I feel struggle. But after meet this books I think my concentrations is improved. Thanks a lot.',
-    slug: 'the-courage-to-be-dislike',
-  },
-  {
-    img: TheCourageToBeDisliked,
-    title: 'The Courage To Be Disliked',
-    description:
-      'Sometimes I can not focus to do one thing. I feel struggle. But after meet this books I think my concentrations is improved. Thanks a lot.',
-    slug: 'the-courage-to-be-dislike',
-  },
-]
-export default function Home() {
+export function slugifyBlog(title: string) {
+  return slugify(title, {
+    replacement: '-',
+    remove: /[*+~.()'"!:@]/g,
+    lower: true,
+    locale: 'vi',
+    trim: true
+  })
+}
+
+export default function Home({ blogs }: { blogs: Array<Book> }) {
   return (
     <Layout home={true}>
       <Head>
@@ -52,24 +35,30 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {books.map((book, index) => {
+      {blogs.map((book, index) => {
         return (
           <section
-            className="shadow-2xl px-6 py-4 mt-4 rounded-sm dark:border dark:border-white"
+            className="mx-auto max-w-md sm:max-w-full shadow-2xl px-6 py-4 mt-4 rounded-sm dark:border dark:border-white"
             key={`book-item-${index}`}
           >
-            <Link href={`/books/${book.slug}`}>
-              <a className="flex flex-col sm:flex-row">
-                <div>
-                  <Image src={book.img} alt={book.title} />
+            <Link href={`/books/${slugifyBlog(book.title)}`}>
+              <a className="flex flex-col items-center sm:items-start sm:flex-row">
+                <div className="sm:max-w-[150px]">
+                  <Image
+                    src={book.img}
+                    alt={book.title}
+                    layout="intrinsic"
+                    width={257}
+                    height={350}
+                  />
                 </div>
-                <div className="mt-6 sm:px-4">
-                  <h2 className="text-2xl font-bold text-gray-700 dark:text-white">
+                <div className="mt-4 w-[257px] sm:mt-0 sm:px-4 sm:w-[560px] md:w-[672px]">
+                  <H2 className="sm:text-2xl">
                     {book.title}
-                  </h2>
-                  <p className="mt-4 text-gray-500 italic dark:text-white">
+                  </H2>
+                  <Paragraph className="text-gray-500 italic dark:text-white">
                     {book.description}
-                  </p>
+                  </Paragraph>
                 </div>
               </a>
             </Link>
@@ -78,4 +67,13 @@ export default function Home() {
       })}
     </Layout>
   )
+}
+
+export async function getServerSideProps({ req }: { req: NextApiRequest }) {
+  const blogs = await getAllBlogsData(req.cookies.lang as LangOptions)
+  return {
+    props: {
+      blogs
+    }
+  }
 }
