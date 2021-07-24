@@ -1,10 +1,10 @@
 /* eslint-disable react/display-name */
-import { getBlogData } from '../../lib/book'
-import { Layout } from '../../components/layout'
-import type { NextApiRequest } from 'next'
-import { getMDXComponent } from 'mdx-bundler/client'
-import { BlogTypography, H1 } from '../../components/typography'
-import type { LangOptions } from '../../constants/lang'
+import {getBlogData} from '../../lib/book'
+import {Layout} from '../../components/layout'
+import type {NextApiRequest} from 'next'
+import {getMDXComponent} from 'mdx-bundler/client'
+import {BlogTypography, H1} from '../../components/typography'
+import type {LangOptions} from '../../constants/lang'
 import Head from 'next/head'
 import * as React from 'react'
 
@@ -14,10 +14,13 @@ interface Frontmatter {
   slug?: string
 }
 
-export default function Book({ blog: { code, frontmatter }, lang }: {
+export default function Book({
+  blog: {code, frontmatter},
+  lang,
+}: {
   blog: {
     code: string
-    frontmatter: Frontmatter,
+    frontmatter: Frontmatter
   }
   lang: LangOptions
 }) {
@@ -33,18 +36,24 @@ export default function Book({ blog: { code, frontmatter }, lang }: {
   )
 }
 
-export async function getServerSideProps({ params, req }: { params: { id: string }, req: NextApiRequest }) {
+export async function getServerSideProps({
+  params,
+  req,
+}: {
+  params: {id: string}
+  req: NextApiRequest
+}) {
   const blog = await getBlogData(params.id, req.cookies.lang as LangOptions)
 
   if (!blog) {
     return {
-      notFound: true
+      notFound: true,
     }
   }
   return {
     props: {
       blog,
-      lang: req.cookies.lang
-    }
+      lang: req.cookies.lang,
+    },
   }
 }

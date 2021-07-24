@@ -1,8 +1,8 @@
-import { Layout } from '../components/layout'
-import { getAllBlogsData } from '../lib/book'
-import { H2, Paragraph } from '../components/typography'
-import type { NextApiRequest } from 'next'
-import type { LangOptions } from '../constants/lang'
+import {Layout} from '../components/layout'
+import {getAllBlogsData} from '../lib/book'
+import {H2, Paragraph} from '../components/typography'
+import type {NextApiRequest} from 'next'
+import type {LangOptions} from '../constants/lang'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -20,11 +20,11 @@ export function slugifyBlog(title: string) {
     remove: /[*+~.()'"!:@]/g,
     lower: true,
     locale: 'vi',
-    trim: true
+    trim: true,
   })
 }
 
-export default function Home({ blogs }: { blogs: Array<Book> }) {
+export default function Home({blogs}: {blogs: Array<Book>}) {
   return (
     <Layout home={true}>
       <Head>
@@ -39,8 +39,7 @@ export default function Home({ blogs }: { blogs: Array<Book> }) {
         return (
           <section
             className="mx-auto max-w-md sm:max-w-full shadow-2xl px-6 py-4 mt-4 rounded-sm dark:border dark:border-white"
-            key={`book-item-${index}`}
-          >
+            key={`book-item-${index}`}>
             <Link href={`/books/${slugifyBlog(book.title)}`}>
               <a className="flex flex-col items-center sm:items-start sm:flex-row">
                 <div className="sm:max-w-[150px]">
@@ -53,9 +52,7 @@ export default function Home({ blogs }: { blogs: Array<Book> }) {
                   />
                 </div>
                 <div className="mt-4 w-[257px] sm:mt-0 sm:px-4 sm:w-[560px] md:w-[672px]">
-                  <H2 className="sm:text-2xl">
-                    {book.title}
-                  </H2>
+                  <H2 className="sm:text-2xl">{book.title}</H2>
                   <Paragraph className="text-gray-500 italic dark:text-white">
                     {book.description}
                   </Paragraph>
@@ -69,11 +66,11 @@ export default function Home({ blogs }: { blogs: Array<Book> }) {
   )
 }
 
-export async function getServerSideProps({ req }: { req: NextApiRequest }) {
+export async function getServerSideProps({req}: {req: NextApiRequest}) {
   const blogs = await getAllBlogsData(req.cookies.lang as LangOptions)
   return {
     props: {
-      blogs
-    }
+      blogs,
+    },
   }
 }

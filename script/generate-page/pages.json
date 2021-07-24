@@ -1,0 +1,287 @@
+[
+	{
+			"url": "https://xxx.kinto-jp.com/top",
+			"to": "fake-top",
+			"screen": "TOP画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/service",
+			"to": "fake-service",
+			"screen": "サービス内容詳細画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/contract",
+			"to": "fake-contract",
+			"screen": "利用手順説明画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/merit",
+			"to": "fake-merit",
+			"screen": "メリット訴求画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/site_domain",
+			"to": "fake-site-domain",
+			"screen": "FAQ画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/corporation",
+			"to": "fake-corporation",
+			"screen": "法人のお客様へ画面"
+		},
+		{
+			"url": "https://xxx.kinto-jp.com/support",
+			"to": "fake-support",
+			"screen": "お問合せTOP画面"
+		},
+		{
+			"url": "https://xxx.kinto-jp.com/customer/contract",
+			"to": "fake-contact",
+			"screen": "お問合せ入力画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/contact/confirm",
+			"to": "fake-contact-confirm",
+			"screen": "お問合せ内容確認画面"
+		},
+		{
+			"url": "https://xxx.kinto-jp.com/contact/done",
+			"to": "fake-contact-done",
+			"screen": "お問合せ完了画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/terms/index",
+			"to": "fake-terms",
+			"screen": "利用規約TOP画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/terms/membership",
+			"to": "fake-membership",
+			"screen": "メンバーシップ規約画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/terms/toyota",
+			"to": "fake-toyota",
+			"screen": "KINTO XXX（トヨタ）利用規約画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/maintenance",
+			"to": "fake-maintenance",
+			"screen": "メンテナンス説明画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/cancel",
+			"to": "fake-cancel",
+			"screen": "契約満了説明画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/expiration",
+			"to": "fake-expiration",
+			"screen": "車両返却説明画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/customer/entry/list",
+			"to": "confirm",
+			"screen": "審査一覧画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/customer/contract/list",
+			"to": "customer/contract/1",
+			"screen": "契約一覧・支払予定額照会画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/customer/contract/{契約ID}",
+			"to": "customer/contract/payment/edit",
+			"screen": "契約詳細"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/customer/contract/payment/edit",
+			"to": "customer/contract/payment/edit-complete",
+			"screen": "月額支払カード変更画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/customer/contract/payment/edit-complete",
+			"to": "",
+			"screen": "月額支払カード変更完了画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/customer/contract/location/edit",
+			"to": "customer/contract/location/edit-confirm",
+			"screen": "担当販売店・クルマ使用場所変更画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/customer/contract/location/edit-confirm",
+			"to": "contract/location/edit-complete",
+			"screen": "担当販売店・クルマ使用場所変更内容確認画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/customer/contract/location/edit-complete",
+			"to": "",
+			"screen": "担当販売店・クルマ使用場所変更完了画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/car/new/list",
+			"to": "fake-new-car",
+			"screen": "新着物件一覧画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/car/list",
+			"to": "fake-cars",
+			"screen": "物件一覧画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/car/{物件ID}",
+			"to": "entry/option",
+			"screen": "物件詳細画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/option",
+			"to": "entry/personal/name",
+			"screen": "審査申込オプション選択画面(個人/法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/personal/name",
+			"to": "entry/confirm",
+			"screen": "審査申込名義選択画面(個人/法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/confirm",
+			"to": "entry/personal/store",
+			"screen": "審査申込選択内容確認画面(個人/法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/personal/store",
+			"to": "entry/agree",
+			"screen": "審査申込販売店選択画面(個人/法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/agree",
+			"to": "",
+			"screen": "審査申込規約同意画面(個人/法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/personal/info",
+			"to": "entry/personal/business",
+			"screen": "審査申込個人情報入力画面(個人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/personal/business",
+			"to": "entry/personal/confirm",
+			"screen": "審査申込勤務先情報入力画面(個人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/personal/confirm",
+			"to": "entry/personal/mail",
+			"screen": "審査申込内容確認画面(個人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/personal/mail",
+			"to": "",
+			"screen": "審査申込受付メール送信完了画面(個人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/personal/complete/{トークン}",
+			"to": "",
+			"screen": "審査申込完了画面(個人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/info",
+			"to": "entry/corporation/contact",
+			"screen": "審査申込法人情報入力画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/contact",
+			"to": "entry/corporation/contact-address-copy",
+			"screen": "審査申込窓口担当情報入力画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/contact-address-copy",
+			"to": "entry/corporation/contact-address",
+			"screen": "審査申込窓口担当住所コピー選択画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/contact-address",
+			"to": "entry/corporation/deliver-copy",
+			"screen": "審査申込窓口担当住所入力画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/deliver-copy",
+			"to": "entry/corporation/deliver",
+			"screen": "審査申込納車担当情報コピー選択画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/deliver",
+			"to": "entry/corporation/deliver-place-copy",
+			"screen": "審査申込納車担当情報入力画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/deliver-place-copy",
+			"to": "entry/corporation/deliver-place",
+			"screen": "審査申込納車担当クルマ使用場所コピー選択画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/deliver-place",
+			"to": "entry/corporation/guarantor-copy",
+			"screen": "審査申込納車担当クルマ使用場所入力画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/guarantor-copy",
+			"to": "entry/corporation/guarantor",
+			"screen": "審査申込連帯保証人情報コピー選択画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/guarantor",
+			"to": "entry/corporation/guarantor-business-copy",
+			"screen": "審査申込連帯保証人情報入力画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/guarantor-business-copy",
+			"to": "entry/corporation/guarantor-business",
+			"screen": "審査申込連帯保証人勤務先コピー選択画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/guarantor-business",
+			"to": "entry/corporation/confirm",
+			"screen": "審査申込連帯保証人勤務先入力画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/confirm",
+			"to": "entry/corporation/mail",
+			"screen": "審査申込内容確認画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/mail",
+			"to": "",
+			"screen": "審査申込受付メール送信完了画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/entry/corporation/complete/{トークン}",
+			"to": "",
+			"screen": "審査申込完了画面(法人)"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/contract/confirm",
+			"to": "contract/payment-monthly",
+			"screen": "本契約内容確認画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/contract/payment-apply",
+			"to": "contract/agree-card",
+			"screen": "本契約申込金カード情報入力画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/contract/payment-monthly",
+			"to": "contract/payment-apply",
+			"screen": "本契約月額支払方法選択画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/contract/agree-card",
+			"to": "contract/complete-card",
+			"screen": "本契約規約同意画面"
+	},
+	{
+			"url": "https://xxx.kinto-jp.com/contract/complete-card",
+			"to": "",
+			"screen": "本契約完了画面"
+	}
+]

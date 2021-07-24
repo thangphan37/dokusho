@@ -1,0 +1,5 @@
+package.json
+package-lock.json
+next.config.js
+next-env.d.ts
+build/

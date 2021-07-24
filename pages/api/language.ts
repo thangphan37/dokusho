@@ -1,20 +1,23 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { serialize } from 'cookie'
+import type {NextApiRequest, NextApiResponse} from 'next'
+import {serialize} from 'cookie'
 type Data = {
-	name: string
+  name: string
 }
 
 export default function handler(
-	req: NextApiRequest,
-	res: NextApiResponse<Data>
+  req: NextApiRequest,
+  res: NextApiResponse<Data>,
 ) {
-	const options = {
-		path: '/',
-		httpOnly: true,
-		maxAge: 60 * 60 * 24 * 7
-	}
-	res.setHeader('Set-Cookie', serialize('lang', JSON.parse(req.body).lang, options))
-	res.statusCode = 307;
-	res.end(res.getHeader('Set-Cookie'))
+  const options = {
+    path: '/',
+    httpOnly: true,
+    maxAge: 60 * 60 * 24 * 7,
+  }
+  res.setHeader(
+    'Set-Cookie',
+    serialize('lang', JSON.parse(req.body).lang, options),
+  )
+  res.statusCode = 307
+  res.end(res.getHeader('Set-Cookie'))
 }
