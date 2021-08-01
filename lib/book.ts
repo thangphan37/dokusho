@@ -4,8 +4,23 @@ import { Lang } from '../constants/lang'
 import path from 'path'
 import fs from 'fs'
 
+if (process.platform === 'win32') {
+	process.env.ESBUILD_BINARY_PATH = path.join(
+		process.cwd(),
+		'node_modules',
+		'esbuild',
+		'esbuild.exe',
+	)
+} else {
+	process.env.ESBUILD_BINARY_PATH = path.join(
+		process.cwd(),
+		'node_modules',
+		'esbuild',
+		'bin',
+		'esbuild',
+	)
+}
 const blogsDirectory = path.join(process.cwd(), 'contents')
-
 type PathsBlog = Array<{
 	params: {
 		book: string;
