@@ -1,60 +1,80 @@
-import {bundleMDX} from 'mdx-bundler'
-import {blogSlugs} from '../constants/slugs'
-import type {LangOptions} from '../constants/lang'
+import { bundleMDX } from 'mdx-bundler'
+import type { LangOptions } from '../constants/lang'
+import { Lang } from '../constants/lang'
 import path from 'path'
 import fs from 'fs'
 
 const blogsDirectory = path.join(process.cwd(), 'contents')
 
+type PathsBlog = Array<{
+	params: {
+		book: string;
+		id: string
+	}
+}>
+
 function getAllBlogIds() {
-  const blogNames = fs
-    .readdirSync(blogsDirectory)
-    .map((blogName: string) => blogName)
+	const pathsBlog: PathsBlog = []
+	const blogNames = fs
+		.readdirSync(blogsDirectory)
+		.map((blogName: string) => blogName)
 
-  return blogNames.map((blogName: string) => {
-    return {
-      params: {id: blogName},
-    }
-  })
+	blogNames.forEach((blogName: string) => {
+		const pathBlog = fs.readdirSync(`${blogsDirectory}/${blogName}`).map((f: string) => ({
+			params: { book: blogName, id: f.replace('.mdx', '') },
+		}))
+
+		pathsBlog.push(...pathBlog)
+	})
+	return pathsBlog
 }
 
-async function getBlogData(id: string, lang: LangOptions) {
-  const originalId = blogSlugs.find(
-    (bs: {en: string; vi: string}) => bs[lang] === id,
-  )
+async function getBlogData(book: string, id: string) {
+	const blogPath = path.join(
+		blogsDirectory,
+		`${book}/${id}.mdx`,
+	)
+	const content = fs.readFileSync(blogPath, 'utf-8')
+	const { code, frontmatter } = await bundleMDX(content)
 
-  if (!originalId) {
-    return
-  }
-  const blogPath = path.join(
-    blogsDirectory,
-    `${originalId['en']}/${lang ?? 'en'}.mdx`,
-  )
-  const content = fs.readFileSync(blogPath, 'utf-8')
-  const {code, frontmatter} = await bundleMDX(content)
-
-  return {
-    code,
-    frontmatter,
-  }
+	return {
+		code,
+		frontmatter,
+	}
 }
 
-async function getAllBlogsData(lang: LangOptions | undefined) {
-  const blogNames = fs.readdirSync(blogsDirectory)
-  return await Promise.all(
-    blogNames.map(async (blogName) => {
-      const blogPath = path.join(
-        blogsDirectory,
-        blogName,
-        `${lang ?? 'en'}.mdx`,
-      )
-      const content = fs.readFileSync(blogPath, 'utf-8')
-      const {frontmatter} = await bundleMDX(content, {
-        cwd: '/Users/thang.phan/Desktop/code/dokusho/public',
-      })
-      return frontmatter
-    }),
-  )
+
+async function getAllBlogsData(lang: LangOptions) {
+	const blogNames = fs.readdirSync(blogsDirectory)
+	return await Promise.all(
+		blogNames.map(async (blogName) => {
+			const blogFiles = fs.readdirSync(`${blogsDirectory}/${blogName}`).map((f: string) => f)
+			const blogFile = lang === Lang.en ? blogFiles[0] : blogFiles[1]
+			return await getFrontmatter(`${blogName}/${blogFile}`)
+		}),
+	)
 }
 
-export {getAllBlogIds, getAllBlogsData, getBlogData}
+
+async function getFrontmatter(blogName: string) {
+	const blogPath = path.join(
+		blogsDirectory,
+		blogName,
+	)
+	const content = fs.readFileSync(blogPath, 'utf-8')
+	const { frontmatter } = await bundleMDX(content, {
+		cwd: `${process.cwd()}/public`,
+	})
+
+	return frontmatter
+}
+
+async function getOppositeId(bookId: string, id: string) {
+	const blogNames = fs.readdirSync(blogsDirectory)
+	const blogName = blogNames[parseInt(bookId)]
+	const blogFiles = fs.readdirSync(`${blogsDirectory}/${blogName}`).map((f: string) => f).find((f: string) => f !== id)
+
+	return blogFiles
+}
+
+export { getAllBlogIds, getBlogData, getAllBlogsData, getOppositeId }

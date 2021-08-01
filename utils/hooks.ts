@@ -10,4 +10,4 @@ function useHasMounted() {
   return hasMounted
 }
 
-export {useHasMounted}
+export { useHasMounted }

@@ -1,41 +1,53 @@
-import {useTheme, mode_types} from '../context/theme-context'
-import {Tabs, TabList, Tab} from '@reach/tabs'
-import {useRouter} from 'next/router'
-import {Rehydrate} from '../components/re-hydrate'
-import {Lang} from '../constants/lang'
-import {blogSlugs} from '../constants/slugs'
+import { useTheme, mode_types } from '../context/theme-context'
+import { Tabs, TabList, Tab } from '@reach/tabs'
+import { useRouter } from 'next/router'
+import { Rehydrate } from '../components/re-hydrate'
+import type { LangOptions } from '../constants/lang'
+import { Lang } from '../constants/lang'
+import { blogSlugs } from '../constants/slugs'
+import type { NextRouter } from 'next/router'
 import Toggle from 'react-toggle'
 import clsx from 'clsx'
 import * as React from 'react'
+
+function composeUrl(location: string, lang: LangOptions) {
+  const url = new URL(location)
+  url.searchParams.set('lang', lang)
+
+  return url
+}
+
+function replaceUrl(url: string, lang: LangOptions, router: NextRouter) {
+  const newUrl = composeUrl(url, lang)
+  router.replace(newUrl)
+}
 
 function Layout({
   children,
   home,
   lang,
+  bookId,
+  blogId
 }: {
   children: React.ReactNode
   home?: boolean
   lang?: keyof typeof Lang
+  bookId?: string
+  blogId?: string
 }) {
   const [mode, toggleMode] = useTheme()
   const router = useRouter()
 
   async function handleChangeLang(index: number) {
     const newLang = index === 0 ? Lang.en : Lang.vi
-    await fetch('/api/language', {
-      method: 'POST',
-      body: JSON.stringify({lang: newLang}),
-    })
 
-    if (lang !== undefined) {
-      const blogSlug = blogSlugs.find(
-        (bs: {en: string; vi: string}) => bs[lang] === router.query.id,
-      )
-      if (blogSlug) {
-        router.replace(blogSlug[newLang])
+    if (home) {
+      router.replace(newLang)
+    } else {
+      if (bookId) {
+        const newBlogId = blogSlugs[parseInt(bookId) - 1].find(f => f !== blogId)
+        router.replace(`/books/${bookId}/${newBlogId}`)
       }
-    } else if (home) {
-      router.reload()
     }
   }
 
@@ -45,8 +57,8 @@ function Layout({
         <div
           className={clsx(
             'mx-auto sm:max-w-2xl py-4',
-            {'max-w-3xl 2xl:max-w-5xl px-4': home},
-            {'max-w-xl px-12': !home},
+            { 'max-w-3xl 2xl:max-w-5xl px-4': home },
+            { 'max-w-xl px-12': !home },
           )}>
           <div className="flex justify-end pt-4">
             <Rehydrate>
@@ -93,4 +105,4 @@ function Layout({
   )
 }
 
-export {Layout}
+export { Layout }
