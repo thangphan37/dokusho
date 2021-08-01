@@ -4,22 +4,6 @@ import { Lang } from '../constants/lang'
 import path from 'path'
 import fs from 'fs'
 
-if (process.platform === 'win32') {
-	process.env.ESBUILD_BINARY_PATH = path.join(
-		process.cwd(),
-		'node_modules',
-		'esbuild',
-		'esbuild.exe',
-	)
-} else {
-	process.env.ESBUILD_BINARY_PATH = path.join(
-		process.cwd(),
-		'node_modules',
-		'esbuild',
-		'bin',
-		'esbuild',
-	)
-}
 const blogsDirectory = path.join(process.cwd(), 'contents')
 type PathsBlog = Array<{
 	params: {
@@ -45,13 +29,7 @@ function getAllBlogIds() {
 }
 
 async function getBlogData(book: string, id: string) {
-	const blogPath = path.join(
-		blogsDirectory,
-		`${book}/${id}.mdx`,
-	)
-	const content = fs.readFileSync(blogPath, 'utf-8')
-	const { code, frontmatter } = await bundleMDX(content)
-
+	const { code, frontmatter } = await getFrontmatter(`${book}/${id}.mdx`)
 	return {
 		code,
 		frontmatter,
@@ -65,23 +43,38 @@ async function getAllBlogsData(lang: LangOptions) {
 		blogNames.map(async (blogName) => {
 			const blogFiles = fs.readdirSync(`${blogsDirectory}/${blogName}`).map((f: string) => f)
 			const blogFile = lang === Lang.en ? blogFiles[0] : blogFiles[1]
-			return await getFrontmatter(`${blogName}/${blogFile}`)
+			return (await getFrontmatter(`${blogName}/${blogFile}`)).frontmatter
 		}),
 	)
 }
 
 
 async function getFrontmatter(blogName: string) {
+	if (process.platform === 'win32') {
+		process.env.ESBUILD_BINARY_PATH = path.join(
+			process.cwd(),
+			'node_modules',
+			'esbuild',
+			'esbuild.exe',
+		)
+	} else {
+		process.env.ESBUILD_BINARY_PATH = path.join(
+			process.cwd(),
+			'node_modules',
+			'esbuild',
+			'bin',
+			'esbuild',
+		)
+	}
+
 	const blogPath = path.join(
 		blogsDirectory,
 		blogName,
 	)
 	const content = fs.readFileSync(blogPath, 'utf-8')
-	const { frontmatter } = await bundleMDX(content, {
+	return await bundleMDX(content, {
 		cwd: `${process.cwd()}/public`,
 	})
-
-	return frontmatter
 }
 
 async function getOppositeId(bookId: string, id: string) {
