@@ -60,7 +60,7 @@ function Layout({
             { 'max-w-3xl 2xl:max-w-5xl px-4': home },
             { 'max-w-xl px-12': !home },
           )}>
-          <div className="flex justify-end pt-4">
+          <div className="flex justify-end pt-4 h-10">
             <Rehydrate>
               <Toggle
                 checked={mode === mode_types.dark}
