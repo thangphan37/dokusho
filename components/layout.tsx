@@ -1,11 +1,11 @@
-import { useTheme, mode_types } from '../context/theme-context'
-import { Tabs, TabList, Tab } from '@reach/tabs'
-import { useRouter } from 'next/router'
-import { Rehydrate } from '../components/re-hydrate'
-import type { LangOptions } from '../constants/lang'
-import { Lang } from '../constants/lang'
-import { blogSlugs } from '../constants/slugs'
-import type { NextRouter } from 'next/router'
+import {useTheme, mode_types} from '../context/theme-context'
+import {Tabs, TabList, Tab} from '@reach/tabs'
+import {useRouter} from 'next/router'
+import {Rehydrate} from '../components/re-hydrate'
+import type {LangOptions} from '../constants/lang'
+import {Lang} from '../constants/lang'
+import {blogSlugs} from '../constants/slugs'
+import type {NextRouter} from 'next/router'
 import Toggle from 'react-toggle'
 import clsx from 'clsx'
 import * as React from 'react'
@@ -27,7 +27,7 @@ function Layout({
   home,
   lang,
   bookId,
-  blogId
+  blogId,
 }: {
   children: React.ReactNode
   home?: boolean
@@ -45,7 +45,9 @@ function Layout({
       router.replace(newLang)
     } else {
       if (bookId) {
-        const newBlogId = blogSlugs[parseInt(bookId) - 1].find(f => f !== blogId)
+        const newBlogId = blogSlugs[parseInt(bookId) - 1].find(
+          (f) => f !== blogId,
+        )
         router.replace(`/books/${bookId}/${newBlogId}`)
       }
     }
@@ -57,8 +59,8 @@ function Layout({
         <div
           className={clsx(
             'mx-auto sm:max-w-2xl py-4',
-            { 'max-w-3xl 2xl:max-w-5xl px-4': home },
-            { 'max-w-xl px-12': !home },
+            {'max-w-3xl 2xl:max-w-5xl px-4': home},
+            {'max-w-xl px-12': !home},
           )}>
           <div className="flex justify-end pt-4 h-10">
             <Rehydrate>
@@ -82,11 +84,15 @@ function Layout({
           </div>
           <Tabs onChange={handleChangeLang}>
             <TabList>
-              <Tab className="text-sm text-white bg-green-500 px-2 py-1 mr-2 rounded-sm focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition ease-in-out duration-300">
+              <Tab
+                aria-label="Select english"
+                className="text-sm text-white bg-green-500 px-2 py-1 mr-2 rounded-sm focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition ease-in-out duration-300">
                 En
               </Tab>
               {/* <Tab className="text-sm text-white bg-indigo-500 px-2 py-1 mr-2 rounded-sm focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition ease-in-out duration-300">Jp</Tab> */}
-              <Tab className="text-sm text-white bg-red-500 px-2 py-1 mr-2 rounded-sm focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition ease-in-out duration-300">
+              <Tab
+                aria-label="Select vietnamese"
+                className="text-sm text-white bg-red-500 px-2 py-1 mr-2 rounded-sm focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition ease-in-out duration-300">
                 Vi
               </Tab>
             </TabList>
@@ -105,4 +111,4 @@ function Layout({
   )
 }
 
-export { Layout }
+export {Layout}
