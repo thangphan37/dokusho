@@ -1,11 +1,10 @@
-import type {AppProps} from 'next/app'
-import {ThemeProvider} from '../context/theme-context'
-import Head from 'next/head'
+import type { AppProps } from 'next/app'
+import { ThemeProvider } from '@/context/theme-context'
 import * as React from 'react'
-import '../styles/globals.css'
+import '@/styles/globals.css'
 import 'react-toggle/style.css'
 
-function MyApp({Component, pageProps}: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider>
       <Component {...pageProps} />

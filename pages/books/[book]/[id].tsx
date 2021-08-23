@@ -1,7 +1,8 @@
-import {Layout} from '../../../components/layout'
-import {getMDXComponent} from 'mdx-bundler/client'
-import {BlogTypography, H1} from '../../../components/typography'
-import {getAllBlogIds, getBlogData} from '../../../lib/book'
+import { Layout } from '@/components/layout'
+import { getMDXComponent } from 'mdx-bundler/client'
+import { components, H1 } from '@/components/components'
+import { getAllBlogIds, getBlogData } from '@/lib/book'
+import type { BlogPath } from '@/lib/book'
 import Head from 'next/head'
 import * as React from 'react'
 
@@ -15,16 +16,14 @@ type Frontmatter = {
 type BookProps = {
   blog: {
     code: string
+    bookId: string
+    blogId: string
     frontmatter: Frontmatter
   }
-  bookId: string
-  blogId: string
 }
 
 export default function Book({
-  blog: {code, frontmatter},
-  bookId,
-  blogId,
+  blog: { code, bookId, frontmatter, blogId },
 }: BookProps) {
   const Component = React.useMemo(() => getMDXComponent(code), [code])
   return (
@@ -45,7 +44,7 @@ export default function Book({
         />
       </Head>
       <H1> {frontmatter.title}</H1>
-      <Component components={BlogTypography} />
+      <Component components={{ ...components }} />
     </Layout>
   )
 }
@@ -57,18 +56,13 @@ export async function getStaticPaths() {
     fallback: false,
   }
 }
-export async function getStaticProps({
-  params,
-}: {
-  params: {book: string; id: string}
-}) {
-  const {book: bookId, id: blogId} = params
-  const blog = await getBlogData(bookId, blogId)
+
+export async function getStaticProps({ params }: BlogPath) {
+  const { book, id } = params
+  const blog = await getBlogData(book, id)
   return {
     props: {
       blog,
-      bookId,
-      blogId,
     },
   }
 }

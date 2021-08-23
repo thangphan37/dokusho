@@ -1,9 +1,10 @@
 /* eslint-disable react/display-name */
+import { ArrowRight } from '@/components/icons/arrow-icons'
+import { AnchorIcon } from '@/components/icons/anchor-icon'
+import { slugifyBlog } from '@/utils/slugify'
+import Image from 'next/image'
 import clsx from 'clsx'
 import * as React from 'react'
-import { ArrowRight } from './icons/arrow-icons'
-import { AnchorIcon } from './icons/anchor-icon'
-import { slugifyBlog } from '../utils/slugify'
 interface TitleProps {
   children?: React.ReactNode
   className?: string
@@ -105,7 +106,7 @@ function ListItem({
   )
 }
 
-function EmphasizeText({
+function CoolText({
   as = 'em',
   className,
   ...props
@@ -171,7 +172,52 @@ function AnchorLink({ children }: { children: React.ReactElement }) {
   )
 }
 
-const BlogTypography = {
+function Notes({
+  as = 'div',
+  className,
+  children,
+  ...props
+}: {
+  as?: React.ElementType
+  className?: string
+  children?: React.ReactNode
+}) {
+  return (
+    <div
+      className={clsx(
+        'font-sans px-4 py-4 mt-4 rounded-sm dark:bg-gray-500 dark:text-white bg-gray-200 text-black border-l-4 border-black dark:border-white',
+        className,
+      )}
+      {...props}>
+      <h2 className="font-bold underline text-xl">Notes:</h2>
+      {children}
+    </div>
+  )
+}
+
+
+type BlogImageProps = {
+  path: string
+  alt: string
+  width?: number
+  height?: number
+}
+
+function BlogImage({ path, alt, width = 250, height = 300 }: BlogImageProps) {
+  return (
+    <div className="flex justify-center mt-6">
+      <Image
+        src={path}
+        alt={alt}
+        layout="intrinsic"
+        width={width}
+        height={height}
+      />
+    </div>
+  )
+}
+
+const components = {
   h1: ({ ...props }) => <H1 {...props} className="mt-6" />,
   h2: ({ ...props }) => (
     <AnchorLink>
@@ -200,8 +246,10 @@ const BlogTypography = {
   ),
   p: ({ ...props }) => <Paragraph {...props} className="text-lg" />,
   code: ({ ...props }) => <Code {...props} />,
-  em: ({ ...props }) => <EmphasizeText {...props} />,
   li: ({ ...props }) => <ListItem {...props} />,
+  CoolText: ({ ...props }) => <CoolText {...props} />,
+  Notes: ({ ...props }) => <Notes {...props} />,
+  BlogImage: ({ ...props }: BlogImageProps) => <BlogImage {...props} />,
 }
 
 export {
@@ -214,7 +262,7 @@ export {
   Code,
   Paragraph,
   ListItem,
-  EmphasizeText,
+  CoolText,
   AnchorLink,
-  BlogTypography,
+  components,
 }

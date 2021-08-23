@@ -1,12 +1,12 @@
-import {Layout} from '../components/layout'
-import {getAllBlogsData} from '../lib/book'
-import {H2, Paragraph} from '../components/typography'
-import type {LangOptions} from '../constants/lang'
-import {Lang} from '../constants/lang'
+import { Layout } from '@/components/layout'
+import { getAllBlogsData } from '@/lib/book'
+import { H2, Paragraph } from '@/components/components'
+import type { LangOptions } from '@/constants/lang'
+import { Lang } from '@/constants/lang'
+import { slugifyBlog } from '@/utils/slugify'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import {slugifyBlog} from '../utils/slugify'
 
 type Book = {
   img: StaticImageData
@@ -20,7 +20,7 @@ type HomeProps = {
   lang: LangOptions
 }
 
-export default function Home({blogs, lang}: HomeProps) {
+export default function Home({ blogs, lang }: HomeProps) {
   return (
     <Layout home={true}>
       <Head>
@@ -53,7 +53,7 @@ export default function Home({blogs, lang}: HomeProps) {
               <a className="flex flex-col items-center sm:items-start sm:flex-row">
                 <div className="sm:max-w-[150px]">
                   <Image
-                    src={book.img}
+                    src={`books/${book.img}`}
                     alt={book.title}
                     layout="intrinsic"
                     width={257}
@@ -76,7 +76,7 @@ export default function Home({blogs, lang}: HomeProps) {
 }
 
 export async function getStaticPaths() {
-  const paths = [{params: {id: Lang.en}}, {params: {id: Lang.vi}}]
+  const paths = [{ params: { id: Lang.en } }, { params: { id: Lang.vi } }]
 
   return {
     paths,
@@ -84,7 +84,7 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({params}: {params: {id: LangOptions}}) {
+export async function getStaticProps({ params }: { params: { id: LangOptions } }) {
   const blogs = await getAllBlogsData(params.id)
   return {
     props: {
