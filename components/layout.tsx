@@ -1,8 +1,8 @@
-import { useTheme, mode_types } from '@/context/theme-context'
-import { Tabs, TabList, Tab } from '@reach/tabs'
-import { Rehydrate } from '@/components/re-hydrate'
-import { Lang } from '@/constants/lang'
-import { useRouter } from 'next/router'
+import {useTheme, mode_types} from '@/context/theme-context'
+import {Tabs, TabList, Tab} from '@reach/tabs'
+import {Rehydrate} from '@/components/re-hydrate'
+import {Lang} from '@/constants/lang'
+import {useRouter} from 'next/router'
 import blogSlugs from '@/constants/slugs.json'
 import Toggle from 'react-toggle'
 import clsx from 'clsx'
@@ -43,8 +43,8 @@ function Layout({
         <div
           className={clsx(
             'mx-auto sm:max-w-2xl py-4',
-            { 'max-w-3xl 2xl:max-w-5xl px-4': home },
-            { 'max-w-xl px-12': !home },
+            {'max-w-3xl px-4': home},
+            {'max-w-xl px-12': !home},
           )}>
           <div className="flex justify-end pt-4 h-10">
             <Rehydrate>
@@ -95,4 +95,4 @@ function Layout({
   )
 }
 
-export { Layout }
+export {Layout}
