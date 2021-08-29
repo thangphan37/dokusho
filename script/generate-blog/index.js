@@ -28,9 +28,8 @@ function slugifyBlog(title) {
 	})
 }
 
-function composeFrontmatter(title, slug) {
+function composeFrontmatter(slug, title) {
 	return {
-		img: `/${slug}.webp`,
 		title,
 		description: '',
 		slug,
@@ -46,7 +45,10 @@ function composeBlogContents(fontmatter) {
 	return `---\n${jsToYaml.stringify(fontmatter)}---\n`
 }
 
-async function generateBlog() {
+async function generateBlog({
+	serialize = JSON.parse,
+	deserialize = JSON.stringify,
+} = {}) {
 	const { titleEn, titleVi } = await inquirer.prompt(
 		[
 			{
@@ -66,16 +68,29 @@ async function generateBlog() {
 
 	const slugEn = slugifyBlog(titleEn)
 	const slugVi = slugifyBlog(titleVi)
-	const fontmatterEn = composeFrontmatter(slugEn, titleEn)
-	const fontmatterVi = composeFrontmatter(slugVi, titleVi)
+	const imagePath = `/${slugEn}.webp`
+	const fontmatterEn = {
+		img: imagePath,
+		...composeFrontmatter(slugEn, titleEn),
+	}
+	const fontmatterVi = {
+		img: imagePath,
+		...composeFrontmatter(slugVi, titleVi),
+	}
 	const blogPath = `contents/${blogs.length + 1}`
 
 	mkdirp.sync(fromRoot(`${blogPath}`))
 	const blogEn = composeBlogContents(fontmatterEn)
 	const blogVi = composeBlogContents(fontmatterVi)
 
+	// write down blog
 	writeFileBLog(blogPath, slugEn, blogEn)
 	writeFileBLog(blogPath, slugVi, blogVi)
+
+	// add slugs data to json file.
+	const data = fs.readFileSync(fromRoot('constants/slugs.json'), 'utf8')
+	const newData = [...serialize(data), [slugEn, slugVi]]
+	fs.writeFileSync(fromRoot('constants/slugs.json'), deserialize(newData))
 }
 
 generateBlog()

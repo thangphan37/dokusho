@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 4000",
-    "build": "next build",
+    "build": "next build && next export",
+    "only-build": "next build",
     "start": "next start",
+    "generate-blog": "node script/generate-blog/index.js",
     "prettier:check": "node script/prettier/index.js check-changed",
     "prettier:write": "node script/prettier/index.js write",
     "lint": "next lint"
@@ -15,9 +17,9 @@
     "chalk": "^4.1.1",
     "clsx": "^1.1.1",
     "cookie": "^0.4.1",
-    "esbuild": "^0.12.17",
-    "mdx-bundler": "^5.2.1",
-    "next": "^11.0.1",
+    "esbuild": "^0.12.20",
+    "mdx-bundler": "^6.0.1",
+    "next": "^11.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-toggle": "^4.1.2",
@@ -36,7 +38,7 @@
     "mkdirp": "^1.0.4",
     "postcss": "^8.3.5",
     "prettier": "^2.3.2",
-    "tailwindcss": "^2.2.2",
+    "tailwindcss": "^2.2.7",
     "typescript": "4.3.4"
   }
 }
