@@ -1,5 +1,5 @@
 import {Layout} from '@/components/layout'
-import {getAllBlogsData} from '@/lib/book'
+import {getAllBlogsData} from '@/lib/blog'
 import {H2, Paragraph} from '@/components/components'
 import type {LangOptions} from '@/constants/lang'
 import {Lang} from '@/constants/lang'

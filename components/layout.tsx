@@ -3,37 +3,38 @@ import {Tabs, TabList, Tab} from '@reach/tabs'
 import {Rehydrate} from '@/components/re-hydrate'
 import {Lang} from '@/constants/lang'
 import {useRouter} from 'next/router'
-import blogSlugs from '@/constants/slugs.json'
 import Toggle from 'react-toggle'
 import clsx from 'clsx'
 import * as React from 'react'
 
+export type BlogIds = {
+  en: string
+  vi: string
+}
+
 function Layout({
   children,
   home,
-  bookId,
-  blogId,
+  blogIds,
 }: {
   children: React.ReactNode
   home?: boolean
-  bookId?: string
-  blogId?: string
+  blogIds?: BlogIds
 }) {
   const [mode, toggleMode] = useTheme()
   const router = useRouter()
 
-  async function handleChangeLang(index: number) {
-    const newLang = index === 0 ? Lang.en : Lang.vi
+  async function hanldeLangChange(index: number) {
+    const lang = index === 0 ? Lang.en : Lang.vi
 
     if (home) {
-      router.replace(newLang)
-    } else {
-      if (bookId) {
-        const newBlogId = blogSlugs[parseInt(bookId) - 1].find(
-          (f) => f !== blogId,
-        )
-        router.replace(`/books/${bookId}/${newBlogId}`)
-      }
+      router.replace(lang)
+
+      return
+    }
+
+    if (blogIds !== undefined) {
+      router.replace(`/books/${router.query.book}/${blogIds[lang]}`)
     }
   }
 
@@ -66,7 +67,7 @@ function Layout({
               />
             </Rehydrate>
           </div>
-          <Tabs onChange={handleChangeLang}>
+          <Tabs onChange={hanldeLangChange}>
             <TabList>
               <Tab
                 aria-label="Select english"

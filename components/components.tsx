@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
-import { ArrowRight } from '@/components/icons/arrow-icons'
-import { AnchorIcon } from '@/components/icons/anchor-icon'
-import { slugifyBlog } from '@/utils/slugify'
+import {ArrowRight} from '@/components/icons/arrow-icons'
+import {AnchorIcon} from '@/components/icons/anchor-icon'
+import {slugifyBlog} from '@/utils/slugify'
 import Image from 'next/image'
 import clsx from 'clsx'
 import * as React from 'react'
@@ -142,13 +142,13 @@ function Code({
   })
 }
 
-function AnchorLink({ children }: { children: React.ReactElement }) {
+function AnchorLink({children}: {children: React.ReactElement}) {
   const subChildren = children.props.children
   const id = slugifyBlog(
     Array.isArray(subChildren)
       ? subChildren
-        .map((c: React.ReactElement) => c.props?.children ?? c)
-        .join('')
+          .map((c: React.ReactElement) => c.props?.children ?? c)
+          .join('')
       : subChildren,
   )
   return (
@@ -195,15 +195,18 @@ function Notes({
   )
 }
 
-
 type BlogImageProps = {
   path: string
   alt: string
-  width?: number
-  height?: number
+  width: number
+  height: number
 }
 
-function BlogImage({ path, alt, width = 250, height = 300 }: BlogImageProps) {
+function BlogImage({path, alt, width, height}: Partial<BlogImageProps>) {
+  if (!path) {
+    return <div>You need to have a src for your image.</div>
+  }
+
   return (
     <div className="flex justify-center mt-6">
       <Image
@@ -218,38 +221,38 @@ function BlogImage({ path, alt, width = 250, height = 300 }: BlogImageProps) {
 }
 
 const components = {
-  h1: ({ ...props }) => <H1 {...props} className="mt-6" />,
-  h2: ({ ...props }) => (
+  h1: ({...props}) => <H1 {...props} className="mt-6" />,
+  h2: ({...props}) => (
     <AnchorLink>
       <H2 {...props} className="mt-6" />
     </AnchorLink>
   ),
-  h3: ({ ...props }) => (
+  h3: ({...props}) => (
     <AnchorLink>
       <H3 {...props} className="mt-6" />
     </AnchorLink>
   ),
-  h4: ({ ...props }) => (
+  h4: ({...props}) => (
     <AnchorLink>
       <H4 {...props} className="mt-6" />
     </AnchorLink>
   ),
-  h5: ({ ...props }) => (
+  h5: ({...props}) => (
     <AnchorLink>
       <H5 {...props} className="mt-6" />
     </AnchorLink>
   ),
-  h6: ({ ...props }) => (
+  h6: ({...props}) => (
     <AnchorLink>
       <H6 {...props} className="mt-6" />
     </AnchorLink>
   ),
-  p: ({ ...props }) => <Paragraph {...props} className="text-lg" />,
-  code: ({ ...props }) => <Code {...props} />,
-  li: ({ ...props }) => <ListItem {...props} />,
-  CoolText: ({ ...props }) => <CoolText {...props} />,
-  Notes: ({ ...props }) => <Notes {...props} />,
-  BlogImage: ({ ...props }: BlogImageProps) => <BlogImage {...props} />,
+  p: ({...props}) => <Paragraph {...props} className="text-lg" />,
+  code: ({...props}) => <Code {...props} />,
+  li: ({...props}) => <ListItem {...props} />,
+  CoolText: ({...props}) => <CoolText {...props} />,
+  Notes: ({...props}) => <Notes {...props} />,
+  BlogImage: ({...props}) => <BlogImage {...props} />,
 }
 
 export {
