@@ -9,7 +9,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 type Book = {
-  img: StaticImageData
+  img: string
   title: string
   description: string
   slug: string

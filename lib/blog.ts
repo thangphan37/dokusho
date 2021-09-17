@@ -54,13 +54,13 @@ async function getAllBlogsData(lang: LangOptions) {
 
   return await Promise.all(
     blogDirectories.map(async (directory) => {
-      const [enBlog, viBlog] = fs.readdirSync(
-        `${contentsDirectory}/${directory}`,
+      const blogs = fs.readdirSync(`${contentsDirectory}/${directory}`)
+      const data = await Promise.all(
+        blogs.map((blog) =>
+          getFrontmatter(directory, blog.replace(/\.mdx/, '')),
+        ),
       )
-      const blogFile = lang === Lang.en ? enBlog : viBlog
-
-      return (await getFrontmatter(directory, blogFile.replace(/\.mdx/, '')))
-        .frontmatter
+      return data.find((d) => d.frontmatter.lang === lang)?.frontmatter
     }),
   )
 }

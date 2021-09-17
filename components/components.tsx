@@ -91,8 +91,9 @@ function ListItem({
   className?: string
   children?: React.ReactNode
 }) {
+  const Tag = as
   return (
-    <li
+    <Tag
       className={clsx(
         'flex items-center text-lg mt-2 dark:text-white',
         className,
@@ -102,7 +103,7 @@ function ListItem({
         <ArrowRight />
       </div>
       <div>{children}</div>
-    </li>
+    </Tag>
   )
 }
 
@@ -182,8 +183,9 @@ function Notes({
   className?: string
   children?: React.ReactNode
 }) {
+  const Tag = as
   return (
-    <div
+    <Tag
       className={clsx(
         'font-sans px-4 py-4 mt-4 rounded-sm dark:bg-gray-500 dark:text-white bg-gray-200 text-black border-l-4 border-black dark:border-white',
         className,
@@ -191,7 +193,7 @@ function Notes({
       {...props}>
       <h2 className="font-bold underline text-xl">Notes:</h2>
       {children}
-    </div>
+    </Tag>
   )
 }
 

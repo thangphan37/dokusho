@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useHasMounted } from '@/utils/hooks'
+import {useHasMounted} from '@/utils/hooks'
 
 function Rehydrate({
   children,
@@ -16,4 +16,4 @@ function Rehydrate({
   return <React.Fragment {...delegated}>{children}</React.Fragment>
 }
 
-export { Rehydrate }
+export {Rehydrate}
