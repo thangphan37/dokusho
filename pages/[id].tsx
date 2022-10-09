@@ -85,6 +85,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}: {params: {id: LangOptions}}) {
+  // redirect to 404 page
   return {
     redirect: {
       destination: '404',
