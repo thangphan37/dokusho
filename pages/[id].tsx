@@ -85,6 +85,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}: {params: {id: LangOptions}}) {
+  return {
+    redirect: {
+      destination: '404',
+      permanent: false,
+      // statusCode: 301
+    },
+  }
   const blogs = await getAllBlogsData(params.id)
   return {
     props: {
